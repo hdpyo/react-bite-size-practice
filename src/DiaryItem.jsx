@@ -2,7 +2,7 @@ export default function DiaryItem({
   item: {
     id, author, content, createdDate, emotion,
   },
-  onDelete,
+  onRemove,
 }) {
   return (
     <div className="DiaryItem">
@@ -16,7 +16,7 @@ export default function DiaryItem({
         type="button"
         onClick={() => {
           if (window.confirm(`${id}번째 일기를 정말 삭제하시겠습니까?`)) {
-            onDelete(id);
+            onRemove(id);
           }
         }}
       >삭제하기
