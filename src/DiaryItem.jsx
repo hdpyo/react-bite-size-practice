@@ -1,7 +1,8 @@
 export default function DiaryItem({
   item: {
-    author, content, createdDate, emotion,
+    id, author, content, createdDate, emotion,
   },
+  onDelete,
 }) {
   return (
     <div className="DiaryItem">
@@ -11,6 +12,15 @@ export default function DiaryItem({
         <span className="date">{new Date(createdDate).toLocaleString()}</span>
       </div>
       <div className="content">{content}</div>
+      <button
+        type="button"
+        onClick={() => {
+          if (window.confirm(`${id}번째 일기를 정말 삭제하시겠습니까?`)) {
+            onDelete(id);
+          }
+        }}
+      >삭제하기
+      </button>
     </div>
   );
 }
