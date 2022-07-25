@@ -1,6 +1,6 @@
 import DiaryItem from './DiaryItem';
 
-export default function DiaryList({ diaryList, onRemove }) {
+export default function DiaryList({ diaryList, onEdit, onRemove }) {
   return (
     <div className="DiaryList">
       <h2>일기 리스트</h2>
@@ -8,7 +8,7 @@ export default function DiaryList({ diaryList, onRemove }) {
       <div>
         {
           diaryList.map((item) => (
-            <DiaryItem onRemove={onRemove} key={item.id} item={item} />
+            <DiaryItem onEdit={onEdit} onRemove={onRemove} key={item.id} item={item} />
           ))
         }
       </div>

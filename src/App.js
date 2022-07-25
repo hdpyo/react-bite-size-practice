@@ -3,6 +3,7 @@ import './App.css';
 import { useRef, useState } from 'react';
 import DiaryEditor from './DiaryEditor';
 import DiaryList from './DiaryList';
+import LifeCycle from './LifeCycle';
 
 function App() {
   const [data, setData] = useState([]);
@@ -29,10 +30,19 @@ function App() {
     setData(newDiaryList);
   };
 
+  const onEdit = (targetId, newContent) => {
+    setData(
+      data.map(
+        (item) => (item.id === targetId ? { ...item, content: newContent } : item),
+      ),
+    );
+  };
+
   return (
     <div className="App">
+      <LifeCycle />
       <DiaryEditor onCreate={onCreate} />
-      <DiaryList onRemove={onRemove} diaryList={data} />
+      <DiaryList onEdit={onEdit} onRemove={onRemove} diaryList={data} />
     </div>
   );
 }
