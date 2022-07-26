@@ -5,7 +5,6 @@ import {
 } from 'react';
 import DiaryEditor from './DiaryEditor';
 import DiaryList from './DiaryList';
-import OptimizeTest from './OptimizeTest';
 
 function App() {
   const [data, setData] = useState([]);
@@ -15,7 +14,6 @@ function App() {
   const getData = async () => {
     const response = await fetch('https://jsonplaceholder.typicode.com/comments')
       .then((res) => res.json());
-    console.log(response);
 
     const initData = response.slice(0, 20).map((item) => ({
       author: item.email,
@@ -75,7 +73,6 @@ function App() {
 
   return (
     <div className="App">
-      <OptimizeTest />
       <DiaryEditor onCreate={onCreate} />
       <div>전체 일기: {data.length}</div>
       <div>기분 좋은 일기 개수 : {goodCount}</div>
