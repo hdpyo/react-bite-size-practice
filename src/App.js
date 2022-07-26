@@ -1,6 +1,7 @@
 import './App.css';
 
 import {
+  useCallback,
   useEffect, useMemo, useRef, useState,
 } from 'react';
 import DiaryEditor from './DiaryEditor';
@@ -20,7 +21,7 @@ function App() {
       content: item.body,
       emotion: Math.floor(Math.random() * 5) + 1,
       createdDate: new Date().getTime(),
-      // eslint-disable-next-line no-plusplus
+
       id: dataId.current++,
     }));
 
@@ -31,7 +32,7 @@ function App() {
     getData();
   }, []);
 
-  const onCreate = (author, content, emotion) => {
+  const onCreate = useCallback((author, content, emotion) => {
     const createdDate = new Date().getTime();
     const newItem = {
       author,
@@ -42,8 +43,9 @@ function App() {
     };
 
     dataId.current += 1;
-    setData([newItem, ...data]);
-  };
+
+    setData((data) => [newItem, ...data]);
+  }, []);
 
   const onRemove = (targetId) => {
     const newDiaryList = data.filter((item) => item.id !== targetId);

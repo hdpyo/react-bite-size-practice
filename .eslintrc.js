@@ -26,5 +26,7 @@ module.exports = {
     'react/no-unescaped-entities': 'off',
     'react/jsx-one-expression-per-line': 'off',
     'import/no-unresolved': 'off',
+    'no-plusplus': 'off',
+    'no-shadow': 'off',
   },
 };
