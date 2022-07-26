@@ -1,6 +1,15 @@
+import { useContext } from 'react';
+
 import DiaryItem from './DiaryItem';
 
-export default function DiaryList({ diaryList, onEdit, onRemove }) {
+// eslint-disable-next-line import/no-cycle
+import { DiaryDispatchContext, DiaryStateContext } from './App';
+
+export default function DiaryList() {
+  const diaryList = useContext(DiaryStateContext);
+
+  const { onEdit, onRemove } = useContext(DiaryDispatchContext);
+
   return (
     <div className="DiaryList">
       <h2>일기 리스트</h2>

@@ -1,10 +1,13 @@
 import './App.css';
 
 import {
+  createContext,
   useCallback,
   useEffect, useMemo, useReducer, useRef,
 } from 'react';
 import DiaryEditor from './DiaryEditor';
+
+// eslint-disable-next-line import/no-cycle
 import DiaryList from './DiaryList';
 
 const reducer = (state, action) => {
@@ -33,9 +36,10 @@ const reducer = (state, action) => {
   }
 };
 
-function App() {
-  // const [data, setData] = useState([]);
+export const DiaryStateContext = createContext();
+export const DiaryDispatchContext = createContext();
 
+function App() {
   const [data, dispatch] = useReducer(reducer, []);
 
   const dataId = useRef(1);
@@ -86,6 +90,8 @@ function App() {
     });
   }, []);
 
+  const memoizedDispatches = useMemo(() => ({ onCreate, onRemove, onEdit }), []);
+
   const getDiaryAnalysis = useMemo(() => {
     const goodCount = data.filter((item) => item.emotion >= 3).length;
     const badCount = data.length - goodCount;
@@ -100,14 +106,18 @@ function App() {
   const { goodCount, badCount, goodRatio } = getDiaryAnalysis;
 
   return (
-    <div className="App">
-      <DiaryEditor onCreate={onCreate} />
-      <div>전체 일기: {data.length}</div>
-      <div>기분 좋은 일기 개수 : {goodCount}</div>
-      <div>기분 나쁜 일기 개수 : {badCount}</div>
-      <div>기분 좋은 일기 비율 : {goodRatio}</div>
-      <DiaryList onEdit={onEdit} onRemove={onRemove} diaryList={data} />
-    </div>
+    <DiaryStateContext.Provider value={data}>
+      <DiaryDispatchContext.Provider value={memoizedDispatches}>
+        <div className="App">
+          <DiaryEditor />
+          <div>전체 일기: {data.length}</div>
+          <div>기분 좋은 일기 개수 : {goodCount}</div>
+          <div>기분 나쁜 일기 개수 : {badCount}</div>
+          <div>기분 좋은 일기 비율 : {goodRatio}</div>
+          <DiaryList />
+        </div>
+      </DiaryDispatchContext.Provider>
+    </DiaryStateContext.Provider>
   );
 }
 

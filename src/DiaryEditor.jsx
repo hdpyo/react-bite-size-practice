@@ -1,8 +1,13 @@
 import {
-  useState, useRef, memo,
+  useState, useRef, memo, useContext,
 } from 'react';
 
-function DiaryEditor({ onCreate }) {
+// eslint-disable-next-line import/no-cycle
+import { DiaryDispatchContext } from './App';
+
+function DiaryEditor() {
+  const { onCreate } = useContext(DiaryDispatchContext);
+
   const authorInput = useRef();
   const contentInput = useRef();
 
