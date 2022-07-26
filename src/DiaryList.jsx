@@ -2,8 +2,7 @@ import { useContext } from 'react';
 
 import DiaryItem from './DiaryItem';
 
-// eslint-disable-next-line import/no-cycle
-import { DiaryDispatchContext, DiaryStateContext } from './App';
+import { DiaryDispatchContext, DiaryStateContext } from './contexts';
 
 export default function DiaryList() {
   const diaryList = useContext(DiaryStateContext);

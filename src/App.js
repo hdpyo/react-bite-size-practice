@@ -1,14 +1,14 @@
 import './App.css';
 
 import {
-  createContext,
   useCallback,
   useEffect, useMemo, useReducer, useRef,
 } from 'react';
-import DiaryEditor from './DiaryEditor';
 
-// eslint-disable-next-line import/no-cycle
+import DiaryEditor from './DiaryEditor';
 import DiaryList from './DiaryList';
+
+import { DiaryStateContext, DiaryDispatchContext } from './contexts';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -35,9 +35,6 @@ const reducer = (state, action) => {
       return state;
   }
 };
-
-export const DiaryStateContext = createContext();
-export const DiaryDispatchContext = createContext();
 
 function App() {
   const [data, dispatch] = useReducer(reducer, []);

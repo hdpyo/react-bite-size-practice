@@ -2,8 +2,7 @@ import {
   useState, useRef, memo, useContext,
 } from 'react';
 
-// eslint-disable-next-line import/no-cycle
-import { DiaryDispatchContext } from './App';
+import { DiaryDispatchContext } from './contexts';
 
 function DiaryEditor() {
   const { onCreate } = useContext(DiaryDispatchContext);
