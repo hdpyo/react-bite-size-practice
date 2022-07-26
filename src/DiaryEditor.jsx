@@ -1,14 +1,10 @@
 import {
-  useState, useRef, memo, useEffect,
+  useState, useRef, memo,
 } from 'react';
 
 function DiaryEditor({ onCreate }) {
   const authorInput = useRef();
   const contentInput = useRef();
-
-  useEffect(() => {
-    console.log('DiaryEditor 렌더!');
-  }, []);
 
   const [state, setState] = useState({
     author: '',
